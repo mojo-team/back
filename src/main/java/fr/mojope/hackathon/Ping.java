@@ -13,4 +13,9 @@ public class Ping {
     public String ping() {
         return "OK";
     }
+
+    @RequestMapping("/")
+    public String messageRacine() {
+        return "Services de la team MOJoPE";
+    }
 }
