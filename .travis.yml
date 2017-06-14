@@ -1,0 +1,15 @@
+env:
+  global:
+    secure: v8BWyUzYnvS4aAWd7t4uNs/7LIJH8uosStdtQfUwjEPK32bP7IHyGr/aConNgvjiieBa6EjOJnN+cfid5ZeZhaFHMyhrJOLmorY8I5YllNOSzFoPJ//7SuvZ63qYbAKdxHMLlZxMJc6ibES7ADANEV2x6RCxfJZVa7Z+bjFjsCrJvbeGhiuYOwJ8tqB3DkiUeYkhE9fPfFgDIOlSa+FXJ3z23PcgYuD6iPjCKfAEZLISOJHGoi9WwomtNVaeB8WM1+i104CkRJIgpgKt3Ohv5dai0X7prxUCEM2FadPuLAKJrZ++f3jkjlOT/PuVFMxLXIxrxn+7X4aqWwwgYlVmXvXmLVf5nsdUuy8VMxonol2auP4Cjz7q+hCtxtrvSw8hvp6jfFDxrYF/m9zkj9vZywmltnflSPJNA7VeTI/Utk8X7u0uwA15Y6VeuQ6TOEys15Wxdx84aBdc7yKYR3scxWoNvM35ODTKWm9o3rQAruP+27a/iAUcgfaSGCt3VG8Z8BnCVISxrtuK+N/OoB2ErKXa/HG7YMQ/g/tmZTDnJyQHP3I9jpwZYpNgJLy1qz5g455ZYB7Xv2iJIlc5BNeC/n3QmAbRwjhGcjfXfYQozebn1/clxbfemyifhMOQ6fXaDGgcGbErXccitqvPdgX4L7RzpEcdnds3K0SV3FmSkGs=
+language: java
+dist: trusty
+jdk: openjdk8
+addons:
+  ssh_known_hosts: vivatech.pintade.org
+before_install:
+- sudo apt-get install sshpass openssh-client
+script: ./mvnw package
+deploy:
+  skip_cleanup: true
+  provider: script
+  script: ./deploy.sh
