@@ -11,7 +11,7 @@ public class Ping {
 
     @RequestMapping("/ping")
     public String ping() {
-        return "OK2";
+        return "OK3";
     }
 
     @RequestMapping("/")
