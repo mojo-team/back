@@ -29,7 +29,7 @@ public class ApiaiController {
 	    	}
 	    	
 	    	Response response = new Response();
-	    	response.setSpeech("Intent : " +intent);
+	    	response.setSpeech("" +facebookSender.getName(userId));
 	    	return response;
 	    }
 }

@@ -18,6 +18,13 @@ public class FacebookSender {
 	private static final String token = "EAASZAVGTIcW4BAMlbxXrYDR1kZB7f4U08bCgJn0caj8SsfbyKssoJNw9jnzEavkC4U0tZAaH2ZAntojZBmaS0lyXUVE9TtLSzgYt5FH6H5ZC882otv5ZCm8s2pGKPo0Ry9ZCZB9q7Le9c49mt9hgLNZCTyRmTXGZCw4a3vhXaM87siZAJAZDZD";
 	private static final String address = "https://graph.facebook.com/v2.6/me/messages?access_token=";
 	
+	private static final String UserProfileAPI = "https://graph.facebook.com/v2.6/%s?access_token=";
+	
+	
+	public String getName(String userId) {
+		RestTemplate restTemplate = new RestTemplate();
+		return restTemplate.getForObject(String.format(UserProfileAPI, userId) + token, String.class);
+	}
 	
 	public String sendAskReviewMessage (String userId) {
 		return sendMessageQuickReplies(userId, "What did you think about your last reservation ?", "1 - Awful", "2 - Bad", "3 - Ok", "4 - Good", "5 - Excellent !");
