@@ -10,6 +10,7 @@ import org.springframework.web.client.RestTemplate;
 import fr.mojope.hackathon.chabot.facebook.jsonwrapper.Element;
 import fr.mojope.hackathon.chabot.facebook.jsonwrapper.Element.Button;
 import fr.mojope.hackathon.chabot.facebook.jsonwrapper.FacebookResponse;
+import fr.mojope.hackathon.chabot.facebook.jsonwrapper.IdentificationApi;
 import fr.mojope.hackathon.chabot.facebook.jsonwrapper.QuickReply;
 
 @Service
@@ -23,7 +24,8 @@ public class FacebookSender {
 	
 	public String getName(String userId) {
 		RestTemplate restTemplate = new RestTemplate();
-		return restTemplate.getForObject(String.format(UserProfileAPI, userId) + token, String.class);
+		IdentificationApi id = restTemplate.getForObject(String.format(UserProfileAPI, userId) + token, IdentificationApi.class);
+		return id.getFirst_name() + " " + id.getLast_name();
 	}
 	
 	public String sendAskReviewMessage (String userId) {
