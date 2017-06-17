@@ -30,6 +30,8 @@ public class ScriptingManager {
 	private String lastUserFirstName;
 	private String lastUserLastName;
 	
+	boolean firstTimeIncident = true;
+	
 	public Response getResponse(Request request) {
 		String intent = request.getResult().getMetadata().getIntentName();
 	 	String userId = request.getOriginalRequest().getData().getSender().getId();
@@ -81,27 +83,39 @@ public class ScriptingManager {
     		String param = request.getResult().getParameters().get("ProblemType");
     		
     		if(param.equalsIgnoreCase("actual room")) {
-    			facebookSender.sendMessageQuickReplies(userId, "Oh man, we're so sorry :( ! Can you tell me what's wrong about the room ? We will take care of it ASAP !", "Not clean", "Missing equipment", "Too much noise", "Not safe", "Can't access it");
-    			Response response = new Response();
-    			Context cont = response.new Context();
-    			cont.setLifespan(3);
-    			cont.setName("ActualRoom");
+    			if(firstTimeIncident) {
+    				firstTimeIncident = false;
+    				facebookSender.sendMessageQuickReplies(userId, "Oh man, we're so sorry :( ! Can you tell me what's wrong about the room ? We will take care of it ASAP !", "Not clean", "Missing equipment", "Too much noise", "Not safe", "Can't access it");
+        			Response response = new Response();
+        			Context cont = response.new Context();
+        			cont.setLifespan(3);
+        			cont.setName("ActualRoom");
+        			
+        			List<Context> contexts = new ArrayList<>();
+        			contexts.add(cont);
+        			response.setContextOut(contexts);
+        			return response;
+    			}else{
+    				facebookSender.sendMessage(userId, "Sorry, but I don't think you're in a meeting room right now.");
+    				return null;
+    			}
     			
-    			List<Context> contexts = new ArrayList<>();
-    			contexts.add(cont);
-    			response.setContextOut(contexts);
-    			return response;
     		}else if(param.equalsIgnoreCase("Precedent room")) {
-    			facebookSender.sendMessageQuickReplies(userId, "I'm sorry to hear that :( Can you tell me what was the problem with the room ? We will try to fix that ASAP.", "Not clean", "Missing equipment", "Too much noise", "Not safe", "Can't access it");
-    			Response response = new Response();
-    			Context cont = response.new Context();
-    			cont.setLifespan(3);
-    			cont.setName("PrecedentRoom");
-    			
-    			List<Context> contexts = new ArrayList<>();
-    			contexts.add(cont);
-    			response.setContextOut(contexts);
-    			return response;
+    			if(firstTimeIncident) {
+    				facebookSender.sendMessage(userId, "Sorry, I don't find any older reservation at your name.");
+    				return null;
+    			}else{
+    				facebookSender.sendMessageQuickReplies(userId, "I'm sorry to hear that :( Can you tell me what was the problem with the room ? We will try to fix that ASAP.", "Not clean", "Missing equipment", "Too much noise", "Not safe", "Can't access it");
+        			Response response = new Response();
+        			Context cont = response.new Context();
+        			cont.setLifespan(3);
+        			cont.setName("PrecedentRoom");
+        			
+        			List<Context> contexts = new ArrayList<>();
+        			contexts.add(cont);
+        			response.setContextOut(contexts);
+        			return response;
+    			}
     		}else{
     			facebookSender.sendMessage(userId, "Ok, I'm transmitting your request to the right person, he will call you ASAP. Deeply sorry for the inconvenience :-/");
     		}
