@@ -1,21 +1,15 @@
 package fr.mojope.hackathon.chabot.scripting;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import fr.mojope.hackathon.chabot.apiai.jsonwrapper.request.Request;
 import fr.mojope.hackathon.chabot.apiai.jsonwrapper.response.Response;
 import fr.mojope.hackathon.chabot.apiai.jsonwrapper.response.Response.Context;
 import fr.mojope.hackathon.chabot.facebook.FacebookSender;
-import fr.mojope.hackathon.chabot.facebook.jsonwrapper.Element;
-import fr.mojope.hackathon.chabot.facebook.jsonwrapper.Element.Button;
-import fr.mojope.hackathon.chabot.facebook.jsonwrapper.FacebookResponse;
-import fr.mojope.hackathon.chabot.facebook.jsonwrapper.FacebookResponseButton;
 
 @Service
 public class ScriptingManager {
@@ -128,6 +122,12 @@ public class ScriptingManager {
     	if(intent.equalsIgnoreCase("PrecedentRoomProblem")) {
     		facebookSender.sendMessage(userId, "Ok. I will send someone to check the room, and a manager will call you ASAP for refunding you.");
     		return null;
+    	}
+    	
+    	if(intent.equalsIgnoreCase("Chatting")) {
+    		facebookSender.sendMessage(userId, "Hey, nice to meet you mate, I'm Robert, your company's Spotter manager ;-)");
+    		
+    		
     	}
     	
     	
