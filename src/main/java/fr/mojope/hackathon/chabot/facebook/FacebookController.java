@@ -11,7 +11,6 @@ import fr.mojope.hackathon.chabot.apiai.jsonwrapper.response.Response;
 import fr.mojope.hackathon.chabot.scripting.ScriptingManager;
 
 @RestController
-@RequestMapping("/push")
 public class FacebookController {
 	
 	@Autowired
@@ -20,12 +19,12 @@ public class FacebookController {
 	@Autowired
 	private FacebookSender facebookSender;
 	
-	@RequestMapping("/incident")
+	@RequestMapping("/pushincident")
 	public void requestIncident() {
 		
 	}
 	
-	@RequestMapping("/avis")
+	@RequestMapping("/pushavis")
 	public String requestAvis() {
 		return facebookSender.askForReview(scriptingManager.getLastUserId(), scriptingManager.getLastUserFirstName());
 	}
