@@ -13,6 +13,8 @@ import fr.mojope.hackathon.chabot.scripting.ScriptingManager;
 @RestController
 public class FacebookController {
 	
+	private boolean firstTimeIncident = true;
+	
 	@Autowired
 	private ScriptingManager scriptingManager;
 	
@@ -21,6 +23,13 @@ public class FacebookController {
 	
 	@RequestMapping("/pushincident")
 	public void requestIncident() {
+		if(firstTimeIncident) {
+			facebookSender.sendMessage(scriptingManager.getLastUserId(), String.format("Don't worry %s, Robert is here for you. First, I need to know what's wrong : you can tell me by picking one of the common reasons, or you can directly write your problem.", scriptingManager.getLastUserFirstName()));
+			facebookSender.sendMessageQuickReplies(scriptingManager.getLastUserId(), "I can also see that you are currently in a meeting room. I'm adding it to the list.", "Actual room", "Precedent room", "Room reservation", "Other service", "Billing", "Sodexo card");
+			firstTimeIncident = false;
+		}else {
+			facebookSender.sendMessageQuickReplies(scriptingManager.getLastUserId(), String.format("Don't worry %s, Robert is here for you. First, I need to know what's wrong : you can tell me by picking one of the common reasons, or you can directly write your problem.", scriptingManager.getLastUserFirstName()), "Precedent room", "Room reservation", "Other service", "Billing", "Sodexo card");
+		}
 		
 	}
 	

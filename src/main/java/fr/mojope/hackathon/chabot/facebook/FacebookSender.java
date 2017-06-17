@@ -9,7 +9,12 @@ import org.springframework.web.client.RestTemplate;
 
 import fr.mojope.hackathon.chabot.facebook.jsonwrapper.Element;
 import fr.mojope.hackathon.chabot.facebook.jsonwrapper.Element.Button;
+import fr.mojope.hackathon.chabot.facebook.jsonwrapper.FacebookResponseButton.Message;
+import fr.mojope.hackathon.chabot.facebook.jsonwrapper.FacebookResponseButton.Recipient;
+import fr.mojope.hackathon.chabot.facebook.jsonwrapper.FacebookResponseButton.Message.Attachment;
+import fr.mojope.hackathon.chabot.facebook.jsonwrapper.FacebookResponseButton.Message.Attachment.Payload;
 import fr.mojope.hackathon.chabot.facebook.jsonwrapper.FacebookResponse;
+import fr.mojope.hackathon.chabot.facebook.jsonwrapper.FacebookResponseButton;
 import fr.mojope.hackathon.chabot.facebook.jsonwrapper.IdentificationApi;
 import fr.mojope.hackathon.chabot.facebook.jsonwrapper.QuickReply;
 
@@ -28,6 +33,25 @@ public class FacebookSender {
 	
 	public String askReviewMessage (String userId, String lastReservation) {
 		return sendMessageQuickReplies(userId, String.format("So, how was your meeting room at %s ?", lastReservation), "1 - Awful", "2 - Bad", "3 - Ok", "4 - Good", "5 - Excellent !");
+	}
+	
+	public String sendMeBackMessage(String userId) {
+		FacebookResponseButton response = new FacebookResponseButton();
+		response.setRecipient(response.new Recipient());
+		response.getRecipient().setId(userId);
+		Element elem = new Element();
+		Button button = elem.new Button();
+		button.setTitle("Send me back to Spotter !");
+		button.setType("web_url");
+		button.setUrl("https://mojopeinc.firebaseapp.com");
+		response.setMessage(response.new Message());
+		response.getMessage().setAttachment(response.getMessage().new Attachment());
+		response.getMessage().getAttachment().setPayload(response.getMessage().getAttachment().new Payload());
+		response.getMessage().getAttachment().getPayload().setButtons(new ArrayList<>(Arrays.asList(button)));
+		response.getMessage().getAttachment().getPayload().setText("Noted, we stay in touch.");
+		
+		RestTemplate restTemplate = new RestTemplate();
+		return restTemplate.postForObject(address + token, response, String.class);
 	}
 	
 	public String getFirstName(String userId) {
