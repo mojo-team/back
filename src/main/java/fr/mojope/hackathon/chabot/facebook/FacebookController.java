@@ -41,6 +41,19 @@ public class FacebookController {
 	
 	@RequestMapping("/pushafterwork")
 	public String requestAfterWork() {
-		return facebookSender.askForReview(scriptingManager.getLastUserId(), scriptingManager.getLastUserFirstName());
+		facebookSender.askForReview(scriptingManager.getLastUserId(), scriptingManager.getLastUserFirstName());
+		return "";
+	}
+	
+	@RequestMapping("/pushinvite")
+	public String requestInvite() {
+		facebookSender.askForReview(scriptingManager.getLastUserId(), scriptingManager.getLastUserFirstName());
+		return "";
+	}
+	
+	@RequestMapping("/pushreservation")
+	public String requestReservation() {
+		facebookSender.sendMessage(scriptingManager.getLastUserId(), String.format("Hey %s, I warned Christiansen and Christophe about your arrival this afternoon. Have a nice day !",scriptingManager.getLastUserFirstName()));
+		return "";
 	}
 }

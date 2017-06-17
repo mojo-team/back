@@ -125,7 +125,7 @@ public class ScriptingManager {
     	if(intent.equalsIgnoreCase("Chatting")) {
     		if(neverChat) {
     			neverChat = false;
-    			facebookSender.sendMessage(userId, "Hey, nice to meet you mate, I'm Robert, your company's Spotter manager ;-)");
+    			facebookSender.sendMessage(userId, String.format("Hey, nice to meet you %s, I'm Rob, your company's Spotter manager ;-)", lastUserLastName));
     			facebookSender.sendMessage(userId, "I'm here to help you in your daily activities. I can collect your feedbacks about our services, and reach the right person for you if you have a problem, at any time.");
     			facebookSender.sendMessage(userId, "But I can also chat with you, in order to get to know you better !");
     		}
