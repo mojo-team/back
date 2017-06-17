@@ -27,7 +27,6 @@ public class ScriptingManager {
 	public Response getResponse(Request request) {
 		String intent = request.getResult().getMetadata().getIntentName();
 	 	String userId = request.getOriginalRequest().getData().getSender().getId();
-	 	lastUserId = userId;
 	 	
 	 	if(lastUserFirstName == null || lastUserFirstName.isEmpty() || lastUserId != userId) {
 		 	lastUserFirstName = facebookSender.getFirstName(userId);
@@ -35,6 +34,10 @@ public class ScriptingManager {
 	 	}
 	 	lastUserId = userId;
 	 	
+	 	
+	 	if(intent.equalsIgnoreCase("TestMyHook")) {
+	 		facebookSender.askReviewMessage(userId, "Ok");
+	 	}
 	 	if(intent.equalsIgnoreCase("AskingForReviewConfirmation")) {
     		String lastReservation = apiCall.getLastReservation(lastUserFirstName, lastUserLastName);
 	 		facebookSender.askReviewMessage(userId, lastReservation);
@@ -65,8 +68,8 @@ public class ScriptingManager {
 	 	}
     	
     	
-    	Response response = new Response();
-    	response.setSpeech("" +facebookSender.getFirstName(userId));
+//    	Response response = new Response();
+//    	response.setSpeech("" +facebookSender.getFirstName(userId));
     	
     	return null;
 	}
