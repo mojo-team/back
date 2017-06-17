@@ -22,14 +22,24 @@ public class FacebookSender {
 	private static final String UserProfileAPI = "https://graph.facebook.com/v2.6/%s?access_token=";
 	
 	
-	public String getName(String userId) {
+	public String getFirstName(String userId) {
 		RestTemplate restTemplate = new RestTemplate();
 		IdentificationApi id = restTemplate.getForObject(String.format(UserProfileAPI, userId) + token, IdentificationApi.class);
-		return id.getFirst_name() + " " + id.getLast_name();
+		return id.getFirst_name();
 	}
 	
-	public String sendAskReviewMessage (String userId) {
-		return sendMessageQuickReplies(userId, "What did you think about your last reservation ?", "1 - Awful", "2 - Bad", "3 - Ok", "4 - Good", "5 - Excellent !");
+	public String getLastName(String userId) {
+		RestTemplate restTemplate = new RestTemplate();
+		IdentificationApi id = restTemplate.getForObject(String.format(UserProfileAPI, userId) + token, IdentificationApi.class);
+		return id.getLast_name();
+	}
+	
+	public String askForReview(String userId, String firstName) {
+		return sendMessage(userId, String.format("Hi %s! I can see that you just finished your meeting. Do you have time to give me a quick feedback ?", firstName));
+	}
+	
+	public String askReviewMessage (String userId, String lastReservation) {
+		return sendMessageQuickReplies(userId, String.format("So, how was your meeting room at %s ?", lastReservation), "1 - Awful", "2 - Bad", "3 - Ok", "4 - Good", "5 - Excellent !");
 	}
 	
 	public String sendMessage(String userId, String message) {

@@ -1,4 +1,4 @@
-package fr.mojope.hackathon.chabot.apiai;
+package fr.mojope.hackathon.chabot.facebook;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -10,17 +10,23 @@ import fr.mojope.hackathon.chabot.apiai.jsonwrapper.request.Request;
 import fr.mojope.hackathon.chabot.apiai.jsonwrapper.response.Response;
 import fr.mojope.hackathon.chabot.scripting.ScriptingManager;
 
-
 @RestController
-@RequestMapping("/request")
-public class ApiaiController {
+@RequestMapping("/push")
+public class FacebookController {
 	
 	@Autowired
 	private ScriptingManager scriptingManager;
 	
-	@RequestMapping(method = RequestMethod.POST)
-	public Response request(@RequestBody Request request) {
-		 	
-	   	return scriptingManager.getResponse(request);
+	@Autowired
+	private FacebookSender facebookSender;
+	
+	@RequestMapping("/incident")
+	public void requestIncident() {
+		
+	}
+	
+	@RequestMapping("/avis")
+	public void requestAvis() {
+		facebookSender.askForReview(scriptingManager.getLastUserId(), scriptingManager.getLastUserFirstName());
 	}
 }
