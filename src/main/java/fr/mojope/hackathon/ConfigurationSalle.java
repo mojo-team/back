@@ -1,5 +1,6 @@
 package fr.mojope.hackathon;
 
+import fr.mojope.hackathon.pojo.CritereSimple;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -10,49 +11,32 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("criteres")
 public class ConfigurationSalle {
 
-    @RequestMapping(value = "formats", produces = "application/json")
-    public Critere[] retourneLaListeDesFormats() {
-        Critere[] listeDesFormats = {
-                new Critere(1,"Indifférent"),
-                new Critere(2,"Location de salle uniquement"),
-                new Critere(3,"Journée d’étude"),
-                new Critere(4,"Séminaire résidentiel"),
-                new Critere(5,"Bureau seul"),
-                new Critere(6,"Visio-conférence")
+    @RequestMapping(value = "experiences", produces = "application/json")
+    public CritereSimple[] retourneLaListeDesExperiences() {
+        CritereSimple[] listeDesFormats = {
+                new CritereSimple(1,"Zen"),
+                new CritereSimple(2,"Concentration"),
+                new CritereSimple(3,"Idéation"),
+                new CritereSimple(4,"Copains"),
+                new CritereSimple(5,"Team"),
         };
         return listeDesFormats;
     }
 
     @RequestMapping(value = "configurations", produces = "application/json")
-    public Critere[] retourneLaListeDesConfigurations() {
-        Critere[] listeDesConfiguration = {
-                new Critere(1,"Indifférent"),
-                new Critere(2,"En U"),
-                new Critere(3,"En réunion"),
-                new Critere(4,"En théatre"),
-                new Critere(5,"Classe"),
-                new Critere(6,"Cocktail")
+    public CritereSimple[] retourneLaListeDesConfigurations() {
+        CritereSimple[] listeDesConfiguration = {
+                new CritereSimple(1,"Indifférent"),
+                new CritereSimple(2,"En U"),
+                new CritereSimple(3,"En réunion"),
+                new CritereSimple(4,"En théatre"),
+                new CritereSimple(5,"Classe"),
+                new CritereSimple(6,"Cocktail")
         };
         return listeDesConfiguration;
     }
 
-    @RequestMapping(value = "equipements", produces = "application/json")
-    public Critere[] retourneLaListeDesEquipements() {
-        Critere[] listeDesEquipements = {
-                new Critere(1,"Aucun"),
-                new Critere(2,"Accès WIFI"),
-                new Critere(3,"Bloc notes / Stylos"),
-                new Critere(4,"Climatisation"),
-                new Critere(5,"Ecran de projection"),
-                new Critere(6,"Paper board"),
-                new Critere(7,"Photocopieur"),
-                new Critere(8,"Rétroprojecteur"),
-                new Critere(9,"Vestiaire"),
-                new Critere(10,"Vidéo projecteur"),
-                new Critere(11,"Visioconférence")
-        };
-        return listeDesEquipements;
-    }
+
 
 
 
