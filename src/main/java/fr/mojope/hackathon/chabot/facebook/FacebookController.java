@@ -35,6 +35,12 @@ public class FacebookController {
 	
 	@RequestMapping("/pushavis")
 	public String requestAvis() {
+		facebookSender.askForReview(scriptingManager.getLastUserId(), scriptingManager.getLastUserFirstName());
+		return "";
+	}
+	
+	@RequestMapping("/pushafterwork")
+	public String requestAfterWork() {
 		return facebookSender.askForReview(scriptingManager.getLastUserId(), scriptingManager.getLastUserFirstName());
 	}
 }

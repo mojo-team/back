@@ -9,4 +9,8 @@ public class ApiCall {
 		return "Vivatech Expo";
 	}
 	
+	public boolean userActuallyInMeetingRoom(String firstName, String lastName) {
+		return true;
+	}
+	
 }

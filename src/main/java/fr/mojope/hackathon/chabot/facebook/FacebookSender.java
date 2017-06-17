@@ -28,7 +28,7 @@ public class FacebookSender {
 	
 	
 	public String askForReview(String userId, String firstName) {
-		return sendMessage(userId, String.format("Hi %s! I can see that you just finished your meeting. Do you have time to give me a quick feedback ?", firstName));
+		return sendMessage(userId, String.format("Hi %s! I can see that you just finished your meeting. Do you have time to give me a quick feedback ;-) ?", firstName));
 	}
 	
 	public String askReviewMessage (String userId, String lastReservation) {
@@ -48,7 +48,7 @@ public class FacebookSender {
 		response.getMessage().setAttachment(response.getMessage().new Attachment());
 		response.getMessage().getAttachment().setPayload(response.getMessage().getAttachment().new Payload());
 		response.getMessage().getAttachment().getPayload().setButtons(new ArrayList<>(Arrays.asList(button)));
-		response.getMessage().getAttachment().getPayload().setText("Noted, we stay in touch.");
+		response.getMessage().getAttachment().getPayload().setText("Ok, thanks for your time. We stay in touch");
 		
 		RestTemplate restTemplate = new RestTemplate();
 		return restTemplate.postForObject(address + token, response, String.class);
